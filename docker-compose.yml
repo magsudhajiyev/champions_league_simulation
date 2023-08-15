@@ -1,0 +1,73 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: ghaith
+        uid: 1000
+      context: ./
+      dockerfile: docker-compose/docker_files/BackendDockerfile
+    image: champions-league
+    depends_on:
+      - champions-league-db
+      - champions-league-cache
+    container_name: champions-league-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    #volumes:
+    #  - ./hotel_backend:/var/www
+    networks:
+      - laravel
+
+  frontend:
+    container_name: champions-league-fronted
+    build:
+      context: ./
+      dockerfile: docker-compose/docker_files/FrontendDockerfile
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    networks:
+      - laravel
+
+  redis:
+    image: redis:alpine
+    container_name: champions-league-cache
+    restart: unless-stopped
+    command: redis-server --requirepass "24aPYMG8vJHHbjY"
+    ports:
+      - 6379:6379
+    networks:
+      - laravel
+
+  db:
+    image: mysql:latest
+    container_name: champions-league-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: champions_league_db
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_PASSWORD: password
+      MYSQL_USER: champions_league_user
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - laravel
+
+  nginx:
+    image: nginx:alpine
+    container_name: hotel-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./champions_league_backend:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    driver: bridge

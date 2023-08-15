@@ -1,0 +1,13 @@
+FROM node:lts-alpine
+
+RUN npm install -g http-server
+
+WORKDIR /home/node/app
+
+COPY ./champions_league_frontend .
+
+RUN npm install
+
+RUN npm run build
+
+CMD [ "http-server", "dist" ]
