@@ -3,7 +3,6 @@
 
 namespace App\Repositories\FootballTeam;
 
-use App\Models\FootballTeam;
 use Illuminate\Support\Collection;
 
 /**

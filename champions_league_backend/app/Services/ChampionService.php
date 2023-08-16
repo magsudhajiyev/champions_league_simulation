@@ -6,7 +6,6 @@ namespace App\Services;
 
 use App\Helper\ChampionHelper;
 use App\Models\Champion;
-use App\Models\Fixture;
 use App\Models\FootballTeam;
 use App\Projections\TeamPredictionsResult;
 use App\Repositories\Champion\ChampionRepository;
@@ -63,7 +62,7 @@ class ChampionService
 
         $fixtures = $this->fixtureService->generate($teams);
 
-        return $this->championRepository->storeWithFixtures(['total_round'=> ChampionHelper::getTotalRoundCount($teams)], $fixtures);;
+        return $this->championRepository->storeWithFixtures(['total_round'=> ChampionHelper::getTotalRoundCount($teams)], $fixtures);
     }
 
 

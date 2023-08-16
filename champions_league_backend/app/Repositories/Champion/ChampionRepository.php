@@ -5,7 +5,6 @@ namespace App\Repositories\Champion;
 
 
 use App\Models\Champion;
-use App\Models\Fixture;
 use Illuminate\Support\Collection;
 
 /**

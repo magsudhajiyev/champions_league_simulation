@@ -6,7 +6,6 @@ namespace App\Services;
 
 use App\Helper\ChampionHelper;
 use App\Models\Fixture;
-use App\Models\FootballTeam;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 

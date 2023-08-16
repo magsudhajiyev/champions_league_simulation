@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FootballTeam;
 use App\Services\ChampionService;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 /**
  * Class ChampionController
