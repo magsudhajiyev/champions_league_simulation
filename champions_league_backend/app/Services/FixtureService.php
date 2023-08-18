@@ -15,6 +15,13 @@ use Illuminate\Support\Collection;
  */
 class FixtureService
 {
+
+    private ChampionHelper $championHelper;
+
+    public function __construct(ChampionHelper $championHelper)
+    {
+        $this->championHelper = $championHelper;
+    }
     /**
      * @param int $roundNo
      * @param Collection $teams
@@ -63,7 +70,7 @@ class FixtureService
      * @return array
      */
     public function generate(array $teams): array{
-        $roundCount = ChampionHelper::getRoundCount($teams);
+        $roundCount = $this->championHelper->getRoundCount($teams);
         $matchesPerRoundCount = floor(count($teams) / 2);
 
         $firstFixtures = $this->generateRoundFixtures(0, $roundCount, true, $matchesPerRoundCount, $teams);
